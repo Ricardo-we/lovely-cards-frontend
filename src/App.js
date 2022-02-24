@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootswatch/dist/quartz/bootstrap.min.css';
+// import UserHome from "./views/UserHome";
+import CardView from './views/CardView';
+import Login from './views/Login';
+import CreateUser from "./views/CreateUser";
+import ManageCards from "./views/CardManagement/ManageCards";
+import ManageCardContents from './views/CardManagement/ManageCardContents'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+		<Routes>
+			{/* LOGIN */}
+			<Route path='*' element={<Login/>}/>
+			<Route path="/login" element={<Login/>}/>
+			<Route path="/create-user" element={<CreateUser/>}/>
+
+      		{/* MANAGE CARDS UI UserHome MANAGE ALL CARDS AND CardView SHOWS THE ACTUAL CARD */}
+			<Route path="/user-home/:username" element={<ManageCards/>}/>
+			<Route path="/manage-card-contents/:cardId" element={<ManageCardContents/>}/>
+			<Route path="/card-view/:cardID" element={<CardView/>}/>
+		</Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+export const APIURL = 'http://localhost:5000'

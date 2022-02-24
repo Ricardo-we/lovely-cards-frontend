@@ -1,0 +1,93 @@
+.add-content-btn-title{
+    opacity: 0; 
+    position: absolute;
+    top: 20px;
+    border: none!important;
+    text-decoration: none;
+    transition: 500ms; 
+}
+
+.add-content-btn {
+    position: relative;
+    margin: 20px;
+    width: 255px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    color: var(--white);
+    padding: 20px;
+    background-color: var(--red);
+    transition: 500ms;
+}
+
+.add-content-btn:hover > .add-content-btn-title, .add-content-btn:focus {
+    opacity: 1;
+    transform: scale(1.5px);
+    border: 2px solid var(--white);
+}
+
+.card-contents {
+    width: 255px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin: 20px;
+    padding: 20px;
+    position: relative;
+    transition: 500ms;
+}
+
+.card-contents img {
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    transition: 500ms linear;
+}
+
+.options-container {
+    opacity: 0;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: transparent;
+    transition: 500ms linear;
+}
+
+.card-contents p {
+    opacity: 0;
+    width: 100%;
+    height: 80px;
+    word-wrap: break-word;
+    overflow: hidden;
+    transition: 500ms;
+}
+
+.card-contents:hover, .card-contents:hover > img{
+    border: 1px solid var(--white);
+    border-radius: 20px;
+}
+
+.card-contents:hover > .options-container , .card-contents:hover > p {
+    opacity: 1;
+}
+
+:root {
+    --red: rgba(190, 11, 26, 0.944);
+    --gray: rgba(120, 115, 115, 0.993);
+    --white: rgba(202, 197, 197, 0.854);
+}
