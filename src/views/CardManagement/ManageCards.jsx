@@ -15,7 +15,7 @@ const UpdateCardForm = ({ oldCardName, id, onSubmitAction }) => {
         const formData = new FormData();
         if (music) formData.append("music", music, music.name);
         formData.append("card-name", cardName);
-        const response = await fetch(`${APIURL}/manage-cards/${id}`, {
+        await fetch(`${APIURL}/manage-cards/${id}`, {
             method: "PUT",
             body: formData,
         });
@@ -83,7 +83,7 @@ function ManageCards() {
     };
 
     const deleteCard = async (cardId) => {
-        const response = await fetch(`${APIURL}/manage-cards/${cardId}`, {
+        await fetch(`${APIURL}/manage-cards/${cardId}`, {
             method: "DELETE",
         });
         getCards();

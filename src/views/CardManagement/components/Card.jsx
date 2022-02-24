@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Modal from "../../public-components/Modal";
 import { APIURL } from "../../../App";
 import '../../../css/ManageCardContents.css'
 

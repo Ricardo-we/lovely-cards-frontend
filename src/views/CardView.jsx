@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { APIURL } from '../App';
-import { EffectCards } from "swiper";
 import { EffectCoverflow, Pagination } from "swiper";
 
 import "swiper/css";
