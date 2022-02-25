@@ -27,4 +27,4 @@ function App() {
 }
 
 export default App;
-export const APIURL = 'http://localhost:5000'
+export const APIURL = 'https://lovely-cards-api.herokuapp.com'
