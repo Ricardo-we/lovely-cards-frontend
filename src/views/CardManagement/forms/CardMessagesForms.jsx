@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { APIURL } from "../../../App";
+import { submitCardMessage, submitCardMessageUpdate } from "../../../utils/requests/ManageCardContentsFuncs";
 
 export default function AddCardMessageForm({ cardId, actionOnSubmit }){
     const [cardHeading, setCardHeading] = useState('');
@@ -7,15 +7,7 @@ export default function AddCardMessageForm({ cardId, actionOnSubmit }){
     
     const addCardMessage = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('heading', cardHeading);
-        formData.append('content', cardMessage);
-        
-        const response = await fetch(`${APIURL}/card-contents/${cardId}`,{
-            method: 'POST',
-            body: formData
-        })
-        const finalResponse = await response.json();
+        const finalResponse = await submitCardMessage(cardHeading, cardMessage, cardId)
         if(finalResponse.message === 'success') actionOnSubmit();
         else throw Error('Something went wrong')
     }
@@ -38,15 +30,7 @@ export function UpdateCardMessageForm({ cardMessage, actionOnSubmit }){
     
     const addCardMessage = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('heading', cardHeading);
-        formData.append('content', cardMessageInput);
-        
-        const response = await fetch(`${APIURL}/card-contents/${cardMessage.id}`,{
-            method: 'PUT',
-            body: formData
-        })
-        const finalResponse = await response.json();
+        const finalResponse = await submitCardMessageUpdate(cardHeading, cardMessageInput, cardMessage.id)
         if(finalResponse.message === 'success') actionOnSubmit();
         else throw Error('Something went wrong')
     }

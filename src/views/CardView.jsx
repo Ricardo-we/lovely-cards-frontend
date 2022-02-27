@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { APIURL } from '../App';
 import { EffectCoverflow, Pagination } from "swiper";
+import getCardData from '../utils/requests/CardViewFuncs';
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -16,29 +16,9 @@ function CardView() {
     const song = new Audio();
     
     const getCard = async () => {
-        const response = await fetch(`${APIURL}/card/${cardID}`);
-        const finalResponse = await response.json();
-
-        const response1 = await fetch(`${APIURL}/card-contents/${cardID}`);
-        const cardMessages = await response1.json();
-
-        const response2 = await fetch(`${APIURL}/card-images/${cardID}`);
-        const cardImages = await response2.json();
-
-        let mixedCards = [...cardMessages, ...cardImages] 
-
-        for(let i in mixedCards){
-            for(let j = 1; j < mixedCards.length; j++){
-                if(mixedCards[j-1].id > mixedCards[j].id){
-                    let tmpVar = mixedCards[j-1];
-                    mixedCards[j-1] = mixedCards[j];
-                    mixedCards[j] = tmpVar;
-                }
-            }
-        }
-
+        const { mixedCards, music } = await getCardData(cardID);
         setCardContents(mixedCards)
-        song.src = finalResponse[0].music;
+        song.src = music;
     }
     
     useEffect(() => {

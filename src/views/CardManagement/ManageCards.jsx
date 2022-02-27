@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { APIURL } from "../../App";
 import { Link } from "react-router-dom";
 import Modal from "../public-components/Modal";
 import NavBar from "../public-components/Navbar";
+import submitCard, { getAllCards, submitCardUpdate, submitDelete } from "../../utils/requests/ManageCardsFuncs";
 import "../../css/UserHome.css";
 
 const UpdateCardForm = ({ oldCardName, id, onSubmitAction }) => {
     const [cardName, setCardName] = useState(oldCardName);
     const [music, setMusic] = useState("");
 
-    const updateCard = async (e) => {
+    const updateCard = async e => {
         e.preventDefault();
-        const formData = new FormData();
-        if (music) formData.append("music", music, music.name);
-        formData.append("card-name", cardName);
-        await fetch(`${APIURL}/manage-cards/${id}`, {
-            method: "PUT",
-            body: formData,
-        });
+        await submitCardUpdate(cardName, music)
         onSubmitAction();
     };
 
@@ -57,42 +51,27 @@ const UpdateCardForm = ({ oldCardName, id, onSubmitAction }) => {
 function ManageCards() {
     const [cardName, setCardName] = useState("");
     const [music, setMusic] = useState("");
-    const [allCards, setAllCards] = useState([
-        { id: 0, card_name: "", music: "" },
-    ]);
+    const [allCards, setAllCards] = useState([{ id: 0, card_name: "", music: "" },]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [updateFormData, setUpdateFormData] = useState({
-        id: 0,
-        oldCardName: "",
-    });
+    const [updateFormData, setUpdateFormData] = useState({id: 0, oldCardName: "",});
 
     const userId = sessionStorage.getItem("user_id");
     const navigate = useNavigate();
 
     const addCard = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("card-name", cardName);
-        formData.append("music", music, music.name);
-    
-        await fetch(`${APIURL}/manage-cards/${userId}`, {
-            method: "POST",
-            body: formData,
-        });
+        await submitCard(cardName, music, userId)
         getCards();
     };
 
     const deleteCard = async (cardId) => {
-        await fetch(`${APIURL}/manage-cards/${cardId}`, {
-            method: "DELETE",
-        });
+        await submitDelete(cardId)
         getCards();
     };
 
     const getCards = async () => {
-        const response = await fetch(`${APIURL}/manage-cards/${userId}`);
-        const finalResponse = await response.json();
-        setAllCards(finalResponse);
+        const allCards = await getAllCards(userId);
+        setAllCards(allCards);
     };
 
     useEffect(() => {

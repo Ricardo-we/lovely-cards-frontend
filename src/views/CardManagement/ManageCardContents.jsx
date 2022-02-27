@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { APIURL } from "../../App";
 import { useParams, useNavigate } from "react-router-dom";
+import getAllCardContents from "../../utils/requests/ManageCardContentsFuncs";
 import Modal from "../public-components/Modal";
 import '../../css/ManageCardContents.css'
 import AddCardMessageForm, { UpdateCardMessageForm }from './forms/CardMessagesForms';
@@ -11,7 +11,7 @@ import NavBar from "../public-components/Navbar";
 // MANAGE ANY CARD MESSAGE OR IMAGE
 function ManageCardContents() {
     const navigate = useNavigate()
-    if(!sessionStorage.getItem('username') || !sessionStorage.getItem('user_id'))navigate('/login')
+    if(!sessionStorage.getItem('username') || !sessionStorage.getItem('user_id')) navigate('/login')
     const { cardId } = useParams(); 
     const [cardMessages, setCardMessages] = useState([{id:0}]);
     const [cardImages, setCardImages] = useState([{id:0}])
@@ -21,12 +21,7 @@ function ManageCardContents() {
     const [actualCardMessage, setActualCardMessage] = useState('')
 
     const getCardContents = async () => {
-        const response1 = await fetch(`${APIURL}/card-contents/${cardId}`);
-        const cardMessages = await response1.json();
-
-        const response2 = await fetch(`${APIURL}/card-images/${cardId}`);
-        const cardImages = await response2.json();
-
+        const { cardMessages, cardImages } = await getAllCardContents(cardId);
         setCardMessages(cardMessages)
         setCardImages(cardImages)
     }

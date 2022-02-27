@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { APIURL } from "../App";
 import { Link, useNavigate } from "react-router-dom";
+import { addUser } from '../utils/requests/LoginFuncs'
 
 function CreateUser() {
     const navigate = useNavigate();
@@ -13,25 +14,8 @@ function CreateUser() {
 
     const submitUser = async (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-        formData.append('gmail', gmail);
-        console.log('loading');
-
-        const response = await fetch(`${APIURL}/users`, {
-            method: 'POST',
-            body: formData
-        })
-
-        const userData = await response.json();
-        console.log(userData);
-
-        if(userData.username) {
-            sessionStorage.setItem('username', userData.username)
-            sessionStorage.setItem('user_id', userData.id)
-            navigate('/user-home/' + userData.username);
-        }
+        const userData = await addUser(username, password, gmail);
+        if(userData.username) navigate('/user-home/' + userData.username);
         else setAlertVisible(true)
         
     }

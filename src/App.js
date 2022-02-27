@@ -7,13 +7,16 @@ import Login from './views/Login';
 import CreateUser from "./views/CreateUser";
 import ManageCards from "./views/CardManagement/ManageCards";
 import ManageCardContents from './views/CardManagement/ManageCardContents'
+import HomePage from './views/Homepage.jsx'
 
 function App() {
   return (
     <BrowserRouter>
 		<Routes>
+			{/* NOT REGISTERED */}
+			<Route path='*' element={<HomePage/>}/>
+			<Route path='/' element={<HomePage/>}/>
 			{/* LOGIN */}
-			<Route path='*' element={<Login/>}/>
 			<Route path="/login" element={<Login/>}/>
 			<Route path="/create-user" element={<CreateUser/>}/>
 

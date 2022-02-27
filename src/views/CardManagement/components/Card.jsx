@@ -1,10 +1,10 @@
-import { APIURL } from "../../../App";
+import { submitCardImageDelete, submitCardMessageDelete } from '../../../utils/requests/ManageCardContentsFuncs'
 import '../../../css/ManageCardContents.css'
 
 export default function MessageManagementCard({ cardData, onActionsMethod, openUpdateModal }) {
     
     const deleteCard = async () => {
-        await fetch(`${APIURL}/card-contents/${cardData.id}`, {method: 'DELETE'})
+        await submitCardMessageDelete(cardData.id)
         onActionsMethod()
     }
 
@@ -26,11 +26,8 @@ export default function MessageManagementCard({ cardData, onActionsMethod, openU
 
 export function ImageManagementCard({ cardData, onActionsMethod }){
     const deleteCard = async () => {
-        const formData = new FormData();
-        formData.append('image-id',cardData.image_id);
-
-        await fetch(`${APIURL}/card-images/${cardData.id}`, {method: 'DELETE', body:formData})
-        onActionsMethod()
+        await submitCardImageDelete(cardData);
+        onActionsMethod();
     }
 
     return(

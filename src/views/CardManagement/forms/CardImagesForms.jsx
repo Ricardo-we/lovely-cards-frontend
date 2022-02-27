@@ -1,19 +1,12 @@
 import { useState } from "react";
-import { APIURL } from "../../../App";
+import { submitCardImage } from "../../../utils/requests/ManageCardContentsFuncs";
 
 export default function AddCardImageForm({ cardId, actionOnSubmit }) {
     const [cardImage, setCardImage] = useState('');
     
     const addCardImage = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('card-image', cardImage, cardImage.name);
-        
-        const response = await fetch(`${APIURL}/card-images/${cardId}`,{
-            method: 'POST',
-            body: formData
-        })
-        const finalResponse = await response.json();
+        const finalResponse = await submitCardImage(cardImage, cardId)
         if(finalResponse.message === 'success') actionOnSubmit();
         else throw Error('Something went wrong')
     }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { APIURL } from "../App";
 import { Link, useNavigate } from "react-router-dom";
+import checkUser from "../utils/requests/LoginFuncs";
 
 function Login() {
     const navigate = useNavigate();
@@ -13,24 +13,10 @@ function Login() {
 
     const submitLogin = async (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-        formData.append('gmail', gmail);
+        const userData =  await checkUser(username, password, gmail);
 
-        const response = await fetch(`${APIURL}/check-user`, {
-            method: 'POST',
-            body: formData
-        })
-        const userData = await response.json();
-    
-        if(userData.username) {
-            sessionStorage.setItem('username', userData.username)
-            sessionStorage.setItem('user_id', userData.id)
-            navigate('/user-home/' + userData.username);
-        }
-        else setAlertVisible(true)
-        
+        if(userData.username) navigate('/user-home/' + userData.username);
+        else setAlertVisible(true);
     }
 
     useEffect(() => {
