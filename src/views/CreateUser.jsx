@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { APIURL } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import { addUser } from '../utils/requests/LoginFuncs'
 

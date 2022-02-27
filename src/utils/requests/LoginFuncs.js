@@ -37,4 +37,6 @@ export async function addUser(username, password, gmail){
         sessionStorage.setItem('username', userData.username)
         sessionStorage.setItem('user_id', userData.id)
     }
+    
+    return await userData;
 }
