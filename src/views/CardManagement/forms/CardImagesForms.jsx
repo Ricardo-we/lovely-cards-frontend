@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { submitCardImage } from "../../../utils/requests/ManageCardContentsFuncs";
+import { useState } from "react";
 
 export default function AddCardImageForm({ cardId, actionOnSubmit }) {
     const [cardImage, setCardImage] = useState('');
     
     const addCardImage = async (e) => {
         e.preventDefault();
-        const finalResponse = await submitCardImage(cardImage, cardId)
-        if(finalResponse.message === 'success') actionOnSubmit();
-        else throw Error('Something went wrong')
+        await submitCardImage(cardImage, cardId)
+        actionOnSubmit && actionOnSubmit();
     }
 
     return (
@@ -22,7 +21,7 @@ export default function AddCardImageForm({ cardId, actionOnSubmit }) {
                     className="form-control" 
                     onChange={e => setCardImage(e.target.files[0])}
                 />    
-                <button className="btn btn-secondary" style={{width:'100%'}} type="submit">ADD</button>
+                <button className="btn btn-secondary" style={{width:'100%'}} type="submit">Submit</button>
             </form>
         </>
     )

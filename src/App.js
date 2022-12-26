@@ -1,13 +1,15 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootswatch/dist/quartz/bootstrap.min.css';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 // import UserHome from "./views/UserHome";
 import CardView from './views/CardView';
-import Login from './views/Login';
 import CreateUser from "./views/CreateUser";
-import ManageCards from "./views/CardManagement/ManageCards";
-import ManageCardContents from './views/CardManagement/ManageCardContents'
 import HomePage from './views/Homepage.jsx'
+import Login from './views/Login';
+import ManageCardContents from './views/CardManagement/ManageCardContents'
+import ManageCards from "./views/CardManagement/ManageCards";
+import React from "react";
 
 function App() {
   return (
@@ -30,4 +32,5 @@ function App() {
 }
 
 export default App;
-export const APIURL = 'https://lovely-cards-api.herokuapp.com'
+// export const APIURL = 'https://lovely-cards-api.herokuapp.com'
+export const APIURL = 'http://localhost:5000'

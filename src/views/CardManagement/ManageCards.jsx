@@ -1,10 +1,12 @@
+import "../../css/UserHome.css";
+
+import submitCard, { getAllCards, submitCardUpdate, submitDelete } from "../../utils/requests/ManageCardsFuncs";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import Modal from "../public-components/Modal";
 import NavBar from "../public-components/Navbar";
-import submitCard, { getAllCards, submitCardUpdate, submitDelete } from "../../utils/requests/ManageCardsFuncs";
-import "../../css/UserHome.css";
+import { useNavigate } from "react-router-dom";
 
 const UpdateCardForm = ({ oldCardName, id, onSubmitAction }) => {
     const [cardName, setCardName] = useState(oldCardName);
@@ -36,6 +38,7 @@ const UpdateCardForm = ({ oldCardName, id, onSubmitAction }) => {
                 onChange={(e) => setMusic(e.target.files[0])}
                 placeholder="Background music"
                 className="form-control"
+                required={false}
             />
             <button
                 onClick={updateCard}

@@ -23,7 +23,7 @@ export async function submitCardUpdate(cardName, music, id){
         body: formData,
     });
 
-    return response.json();
+    return await response.json();
 }
 
 export async function submitDelete(cardId){
